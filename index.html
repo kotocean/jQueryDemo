@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-    <title>News 杂志</title>
+    <title>News轻杂志</title>
 
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -22,57 +22,27 @@
     <div class="header" style="background-image: url(http://image.youzhan.org/d/dd/2de797545de56274f03a5920eb3a1.jpg)">
       
       <div class="logoimg">
-        <a href="http://www.spotsport.cn" title="News 杂志"><img src="http://image.youzhan.org/e/35/22ccaf4c24ef690f7767e6a3ba5f0.png" alt="News 杂志" width="78"></a>
+        <a href="http://www.spotsport.cn" title="News轻杂志"><img src="http://image.youzhan.org/e/35/22ccaf4c24ef690f7767e6a3ba5f0.png" alt="News轻杂志" width="78"></a>
       </div>
 
       <div class="container">
         <div class="row">
           <div class="col-xs-12">
             <div class="logotxt"><h1><a href="http://www.spotsport.cn">电影资讯</a></h1></div> 
-            <h2 class="site-name text-center">News 杂志<span>www.spotsport.cn</span></h2>
+            <h2 class="site-name text-center">News轻杂志<span>www.spotsport.cn</span></h2>
           </div>
         </div>
       </div>
       
     </div>
     <div id="news" class="container">
-      <!-- <div class="row">
-        <div class="col-xs-12 col-md-6">
-          <div class="thumbnail">
-            <div class="caption">
-              <h3>电影《基因迷途》7月24日正式定档优酷 本体克隆体组团揭秘解谜题</h3>
-              <p>环球网娱乐 7小时前</p>
-            </div>
-            <img src="images/img01.png">
-            <div class="caption">
-              <p>由浙江东阳韵航影视传媒有限公司出品、浙江康华影视文化有限公司、流星时代国际文化传媒（北京）有限公司联合出品的科幻悬疑题材网络大电影《基因迷途》于优...</p>
-              <p style="text-align: right;">
-                <a href="#"><span class="glyphicon glyphicon-share" style="font-size: 25px;"></span></a>
-                <a href="#"><span class="glyphicon glyphicon-unchecked" style="font-size: 25px;"></span></a>
-              </p>
-            </div>
-          </div>
-        </div>
-        <div class="col-xs-12 col-md-6">
-          <div class="thumbnail">
-            <div class="caption">
-              <h3>Thumbnail label</h3>
-              <p>...</p>
-            </div>
-            <img src="images/02.png">
-            <div class="caption">
-              <p>...</p>
-              <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-            </div>
-          </div>
-        </div>
-      </div> -->
+      <!-- 内容填充的位置 -->
     </div>
     <div class="copyright">
         <div class="container">
             <div class="row">
                 <div class="col-sm-12">
-                    <span>Copyright © <a href="http://www.spotsport.cn">News 杂志</a></span> |
+                    <span>Copyright © <a href="http://www.spotsport.cn">News轻杂志</a></span> |
                     <span><a href="http://www.spotsport.cn" target="_blank">京ICP备18016252号</a></span>
                 </div>
             </div>
@@ -138,7 +108,9 @@
         return $("<span>&nbsp;&nbsp;&nbsp;</span>")
       }
 
-      $.getJSON("data/news.txt", function(data){
+      // var jsonNewsFile = "data/news.json"
+      var jsonNewsFile = "http://news.s1.natapp.cc/news"
+      $.getJSON(jsonNewsFile, function(data){
           var num = data.length
           for(var i=0;i<num;i++){
             var row = genRow(data[i], data[i+1])
