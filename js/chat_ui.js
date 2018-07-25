@@ -2,7 +2,7 @@
  * Created by jiawei.tu on 12/31 0031.
  */
 /////start websocket
-var wb_url = 'ws://localhost:80/'
+var wb_url = 'ws://spotsport:80/wb'
 
 var wb = new WebSocket(wb_url)
 
@@ -99,9 +99,20 @@ function sleep(d){
     while(Date.now() - t <= d);
 }
 
+function getUrlParam(name) {
+      var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+      var r = window.location.search.substr(1).match(reg); //匹配目标参数
+      if(r != null){
+          return decodeURIComponent(r[2]);
+      }
+      return null;//返回参数值
+    }
+
 $(document).ready(function() {
-    var currentUser;
-    var roomID = 'roomID-3'
+    var currentUser
+    var new_ = JSON.parse(getUrlParam("new")) 
+    var roomID = hex_md5(new_.href)
+
     var prevDate = new Date();
     prevDate.setFullYear(2016);
 
