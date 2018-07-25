@@ -2,7 +2,7 @@
  * Created by jiawei.tu on 12/31 0031.
  */
 /////start websocket
-var wb_url = 'ws://spotsport:80/wb'
+var wb_url = 'ws://spotsport.cn:80/wb'
 
 var wb = new WebSocket(wb_url)
 
