@@ -87,19 +87,21 @@
         var p = $('<p class="toolbox"></p>')
         caption.append(p)
 
-        p.append(genIconBtn("edit"))
+        p.append(genIconBtn("edit","/chat.html?new="+encodeURI(JSON.stringify(data))))
         p.append(genSpace())
-        p.append(genIconBtn("share"))
+        // p.append(genIconBtn("share","#"))
+        // p.append(genSpace())
+        p.append(genIconBtn("unchecked","#"))
         p.append(genSpace())
-        p.append(genIconBtn("unchecked"))
+        p.append(genIconBtn("link",data.href))
 
         return col
       }
 
-      function genIconBtn(icon){
+      function genIconBtn(icon, href){
         var icon = $("<span class='glyphicon glyphicon-"+ icon +"' style='font-size: 25px;'></span>")
         var a = $('<a></a>')
-        a.attr("href", "#")
+        a.attr("href", href)
         a.append(icon)
         return a
       }

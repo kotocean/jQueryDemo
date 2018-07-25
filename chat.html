@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+	<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+</head>
+<body>
+<div class="container">
+
+	<div class="row" style="margin-bottom: 60px;">
+	  <div class="col-xs-12 col-sm-6 col-md-8" style="padding:0;">
+	  	<div class="panel panel-default" style="border:none;">
+		  <div class="panel-body">
+		    <!-- 头部文章区 -->
+		    <div class="thumbnail" style="border: none;padding: 0;">
+				<img id="new_image" src="http://himg2.huanqiu.com/attachment2010/2018/0722/20180722125750909.jpg">
+			</div>
+		    <div>
+			  <h3 id="new_title">全国院线电影《童年时代》在渝筹备简讯</h3>
+			  <p id="new_summary">由重庆稣渔影视传媒股份有限公司筹备出品的，全国院线电影《童年时代》于2018年5月7日正式在国家新闻出版总局电影电子政务平台备案。 据重庆稣渔影视传媒负责...</p>
+			  <p>
+			  	<a id="new_href" href="http://www.sohu.com/a/242653190_430336">搜狐网 1小时前</a>
+			  </p>
+			</div>
+		  </div>
+		  <div class="panel-footer">
+
+		  	<!-- 讨论区 -->
+			<div class="list-group" id="list-group">
+			  <div href="#" class="list-group-item active">
+			    <h4 class="list-group-item-heading">讨论、交流区</h4>
+			  </div>
+			  <div href="#" class="list-group-item" >
+			    <h4 class="list-group-item-heading">昵称</h4>
+			    <p class="list-group-item-text">这里是用户的讨论发言区，针对当前主体的言论。</p>
+			    <div style="text-align: right; font-size: 22px;">
+			    	<a href="#"><span class="glyphicon glyphicon-thumbs-down"></span></a>
+			    	<span>&nbsp;&nbsp;&nbsp;</span>
+			    	<a href="#"><span class="glyphicon glyphicon-thumbs-up"></span></a>
+			    </div>
+			  </div>
+			</div>
+		  </div>
+		</div>
+	  </div>
+	  <div class="col-xs-6 col-md-4">
+	  	<div class="panel panel-info">
+		  <div class="panel-heading">
+		    <h2 class="panel-title">热门讨论主题</h2>
+		  </div>
+		  <div class="panel-body">
+		    电影
+		  </div>
+		</div>
+	  </div>
+	</div>
+
+	<!-- 发言区 -->
+	<div class="navbar navbar-default navbar-fixed-bottom">
+		<div class="col-lg-12">
+	        <div class="input-group input-group-lg">
+	          <input type="text" class="form-control" id="msgtext">
+	          <div class="input-group-btn">
+	            <button type="button" class="btn btn-primary" onclick="SendMsg()">发送</button>	            
+	          </div>
+	        </div><!-- /.input-group -->
+	     </div>
+	 </div>
+</div>	
+
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">请输入用户名</h4>
+            </div>
+            <div class="modal-body">
+				<input type="text" class="form-control" id="userName">
+            </div>
+            <div class="modal-footer">
+                <!-- <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button> -->
+                <button type="button" class="btn btn-primary" onclick="getUserName()" data-dismiss="modal">确定</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/md5.js"></script>
+<script type="text/javascript">
+    var ws = null;
+    var userName = null;
+
+    //新闻内容
+
+    var new_ = JSON.parse(getUrlParam("new")) 
+    $("#new_image").attr("src", new_.image)
+    $("#new_title").text(new_.title)
+    $("#new_summary").text(new_.summary)
+    $("#new_href").attr("href", new_.href)
+    $("#new_href").text(new_.from_time) 
+
+    //md5
+    var topic = hex_md5(new_.href)  
+
+    $('#myModal').modal('show')
+
+    function getUserName(){
+    	userName = $("#userName").val()
+    }
+
+    function getUrlParam(name) {
+      var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+      var r = window.location.search.substr(1).match(reg); //匹配目标参数
+      if(r != null){
+          return decodeURIComponent(r[2]);
+      }
+      return null;//返回参数值
+	}
+
+
+    function SendMsg() {
+        var msg = document.getElementById('msgtext').value;
+        var message = {"userName": userName, "content": msg, "topic": topic}
+        say(message)
+    }
+
+    function say(message) {
+        $("#list-group").append(genListItem(message))
+    }
+
+    function genListItem(message){
+    	var item = $('<div href="#" class="list-group-item" ></div>')
+
+    	var userName = $('<h4 class="list-group-item-heading"></h4>')
+    	userName.text(message.userName)
+    	var content = $('<p class="list-group-item-text"></p>')
+    	content.text(message.content)
+
+    	var btns = $('<div style="text-align: right; font-size: 22px;"></div>')
+    	btns.append(genIconBtn("down","#"))
+    	btns.append(genSpace())
+    	btns.append(genIconBtn("up","#"))
+
+    	item.append(userName)
+    	item.append(content)
+    	item.append(btns)
+
+    	return item
+
+    }
+
+    function genIconBtn(icon, href){
+        var icon = $("<span class='glyphicon glyphicon-thumbs-"+ icon +"' style='font-size: 25px;'></span>")
+        var a = $('<a></a>')
+        a.attr("href", href)
+        a.append(icon)
+        return a
+      }
+
+    function genSpace(){
+       return $("<span>&nbsp;&nbsp;&nbsp;</span>")
+    }
+    </script>
+</body>
+</html>
