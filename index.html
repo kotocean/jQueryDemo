@@ -38,6 +38,14 @@
     <div id="news" class="container">
       <!-- 内容填充的位置 -->
     </div>
+    <div id="previewModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+	    <div class="modal-dialog" role="document">
+	    	<div class="modal-content">
+	    		<img id="previewImg" class="img-responsive center-block" src="http://p0.ifengimg.com/pmop/2018/0807/E0E79116CEC3D592E2933340FEB48E295559A7E2_size29_w400_h435.jpeg">
+	    	</div>
+	    </div>
+		
+    </div>
     <div class="copyright">
         <div class="container">
             <div class="row">
@@ -74,7 +82,7 @@
         caption.append(h3)
         caption.append(p)
 
-        var img = $('<img></img>')
+        var img = $('<img data-toggle="modal" data-target="#previewModal" onclick="previewImgBtn(\''+data.image+'\')"></img>')
         img.attr("src", data.image)
         thumbnail.append(img)
 
@@ -96,6 +104,10 @@
         p.append(genIconBtn("link",data.href))
 
         return col
+      }
+
+      function previewImgBtn(src){
+      	$("#previewImg").attr("src", src)
       }
 
       function genIconBtn(icon, href){
